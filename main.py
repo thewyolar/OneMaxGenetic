@@ -1,5 +1,4 @@
 from random import randint
-import matplotlib.pyplot as plt
 
 from individual import Individual
 
@@ -24,4 +23,5 @@ if __name__ == '__main__':
     counter = 0
 
     fitness = [population[i].fitness for i in range(len(population))]
-    print(sum(fitness))
+    maxFitness = []
+    meanFitness = []
