@@ -1,4 +1,4 @@
-class Individual():
+class Individual:
     def __init__(self, list):
         self.fitness = sum(list)
         self.chromosomes = list
