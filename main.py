@@ -1,5 +1,4 @@
 from random import randint
-
 from individual import Individual
 
 # Constants
@@ -18,6 +17,22 @@ def createPopulation(n=0):
     return list([createIndividuals() for _ in range(n)])
 
 
+def clone(chromosomes):
+    ind = Individual(chromosomes)
+    return ind
+
+def selTournament(population, size):
+    offspring = []
+    for i in range(size):
+        i1 = i2 = i3 = 0
+        while i1 == i2 or i1 == i3 or i2 == i3:
+            i1, i2, i3 = randint(0, size - 1), randint(0, size - 1), randint(0, size - 1)
+
+        offspring.append(max([population[i1], population[i2], population[i3]], key=lambda i: i.))
+
+    return offspring
+
+
 if __name__ == '__main__':
     population = createPopulation(POPULATION_SIZE)
     counter = 0
@@ -25,3 +40,5 @@ if __name__ == '__main__':
     fitness = [population[i].fitness for i in range(len(population))]
     maxFitness = []
     meanFitness = []
+
+

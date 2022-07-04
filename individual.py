@@ -5,7 +5,3 @@ class Individual:
 
     def __str__(self):
         return str(self.chromosomes)
-
-    def updateFitness(self):
-        self.fitness = sum(list)
-        return self.fitness
