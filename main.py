@@ -37,12 +37,12 @@ def selTournament(population, size):
 
 def cxOnePoint(child1, child2):
     s = randint(2, len(child1) - 3)
-    child1.chromosomes[s:], child2.chromosomes[s:] = child2.chromosomes[s:], child1.chromosomes[s:]
+    child1[s:], child2[s:] = child2[s:], child1[s:]
 
 
-def mutFlipBit(mutant, indpb=0.01):
+def mutFlipBit(mutant, propability=0.01):
     for i in range(len(mutant)):
-        if random() < indpb:
+        if random() < propability:
             mutant[i] = 0 if mutant[i] == 1 else 1
 
 
@@ -50,7 +50,6 @@ if __name__ == '__main__':
     population = createPopulation(POPULATION_SIZE)
     counter = 0
 
-    fitness = [population[i].getFitness() for i in range(len(population))]
     maxFitnessValues = []
     meanFitnessValues = []
 
@@ -67,16 +66,16 @@ if __name__ == '__main__':
 
         for mutant in offspring:
             if random() < MUTATION_PROBABILITY:
-                mutFlipBit(mutant, indpb=1.0 / STRING_MAX_LENGTH)
+                mutFlipBit(mutant, propability=1.0 / STRING_MAX_LENGTH)
 
-        freshFitnessValues = list(map(individual.getFitness(), offspring))
+        freshFitnessValues = [offspring[i].getFitness() for i in range(len(offspring))]
 
         for individual, fitnessValue in zip(offspring, freshFitnessValues):
-            individual.fitness.values = fitnessValue
+            individual.fitness = fitnessValue
 
         population = offspring
 
-        fitnessValues = [ind.fitness.values[0] for ind in population]
+        fitnessValues = [ind.fitness for ind in population]
 
         maxFitness = max(fitnessValues)
         meanFitness = sum(fitnessValues) / len(population)
